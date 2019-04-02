@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReadStatus from './readStatus'
 
 class ListBooks extends Component {
     
@@ -18,11 +19,14 @@ class ListBooks extends Component {
                                     backgroundImage: `url(${book.imageLinks.thumbnail})`
                                 }}>
                             </div>
+                            <ReadStatus />
                         </div>
                         <div className='book'>
                             <p className="book-title">{book.title}</p>
                             <p className="book-authors">{book.authors}</p>
+                            
                         </div>
+                        
                        </li>
                     ))} 
                 </ol>
