@@ -86,6 +86,7 @@ body, .app {
 }
 
 .search-books-input-wrapper {
+  display: inline-block;
   flex: 1;
   background: #e9e;
 }
@@ -123,6 +124,16 @@ button:active {
 }
 
 /* books grid */
+
+.book-avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
 .books-grid {
   list-style-type: none;
