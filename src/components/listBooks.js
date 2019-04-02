@@ -1,25 +1,10 @@
 import React, { Component } from 'react'
 
 class ListBooks extends Component {
-    state = {
-        query: ''
-    }
     
-    updateQuery = (query) => {
-        this.setState(() => ({
-            query: query.trim()
-        }))
-    }
     
     render() {
-        const { query } = this.state
-        const { books } = this.props
-
-        const showingBooks = query === ''
-        ? books
-        : books.filter((c) => (
-            c.name.toLowerCase().includes(query.toLowerCase())
-        ))
+        const { showingBooks } = this.props
 
         return (
             <div className="bookshelf-books">
