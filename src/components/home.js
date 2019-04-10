@@ -18,15 +18,7 @@ class Home extends Component {
             })
     }
 
-    updateQuery = (query) => {
-        this.setState(() => ({
-            query: query.trim()
-        }))
-    }
-
-    clearQuery = () => {
-        this.updateQuery('')
-    }
+    
     render(){
         const { query, books } = this.state
 
