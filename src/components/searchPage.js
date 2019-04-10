@@ -5,19 +5,38 @@ import ListBooks from './listBooks'
 
 class SearchPage extends Component {
     state = {
-        books: [],
-        query: ''
-    }
-    componentDidMount(){
-        BooksAPI.getAll()
-            .then((books) => {
-                this.setState(() => ({
-                    books
-                }))
-            })
+        showingBooks: [],
+        query: '',
+        queryInput: false
     }
 
     updateQuery = (query) => {
+        console.log(query)
+        this.setState(() => ({
+            query: query
+        }))
+        if (query) {
+            BooksAPI.search(query)
+                .then(books => {
+                books.length > 0
+                ? this.setState(
+                    { 
+                        showingBooks: books, 
+                        queryInput: false 
+                    })
+                : this.setState(
+                    { showingBooks: [], queryInput: true });
+            });
+          } else this.setState(
+              {
+                   showingBooks: [], 
+                   queryInput: false 
+                });
+        }
+    
+
+    /*updateQuery = (query) => {
+        console.log(query)
         this.setState(() => ({
             query: query.trim()
         }))
@@ -25,16 +44,11 @@ class SearchPage extends Component {
 
     clearQuery = () => {
         this.updateQuery('')
-    }
+    }*/
 
     render() {   
-        const { query, books } = this.state
-
-        const showingBooks = query === ''
-        ? books
-        : books.filter((c) => (
-            c.title.toLowerCase().includes(query.toLowerCase())
-        ))
+        const { query, showingBooks } = this.state
+        
         return(
             <div className="app">
                 <div className="search-books">
@@ -51,29 +65,21 @@ class SearchPage extends Component {
                                 value={query}
                                 onChange={(event) => this.updateQuery(event.target.value)}    
                             />
-                            
                         </div>
                     </div>
                     <div className="search-books-results">
-                        {showingBooks.length !== books.length && (
-                            <div className='showing-books'>
-                                <span>
-                                    Now showing {showingBooks.length} of {books.length}
-                                </span> 
-                                <button onClick={this.clearQuery}>Show all</button> 
-                            </div>
-                        )}  
-                        <ListBooks 
-                            showingBooks={showingBooks}
-                        />
-                    </div>
-                        
+                        {showingBooks.length > 0 && (
+                            <ListBooks 
+                                showingBooks={showingBooks}
+                            />
+                        )}
+                    </div> 
                 </div>
             </div>
             
         )
+    
     }
-
 }
 
 
