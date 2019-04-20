@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../utils/BooksAPI'
-import ListBooks from './listBooks'
+import Book from './book'
 
 class SearchPage extends Component {
     state = {
@@ -11,12 +11,11 @@ class SearchPage extends Component {
     }
 
     updateQuery = (query) => {
-        console.log(query)
         this.setState(() => ({
             query: query
         }))
         if (query) {
-            BooksAPI.search(query)
+            BooksAPI.search(query.trim(), 20)
                 .then(books => {
                 books.length > 0
                 ? this.setState(
@@ -26,7 +25,7 @@ class SearchPage extends Component {
                     })
                 : this.setState(
                     { showingBooks: [], queryInput: true });
-            });
+                });
           } else this.setState(
               {
                    showingBooks: [], 
@@ -35,7 +34,8 @@ class SearchPage extends Component {
         }
 
     render() {   
-        const { query, showingBooks } = this.state
+        const { query, showingBooks, queryInput } = this.state
+        const { shelfChange } = this.props
         
         return(
             <div className="app">
@@ -57,9 +57,17 @@ class SearchPage extends Component {
                     </div>
                     <div className="search-books-results">
                         {showingBooks.length > 0 && (
-                            <ListBooks 
-                                showingBooks={showingBooks}
-                            />
+                          <div>
+                          <h3>Showing {showingBooks.length} books </h3>  
+                          <ol className="books-grid">
+                                        {showingBooks.map(book => (
+                                            <Book book={book} books={showingBooks} key={book.id} shelfChange={shelfChange} />
+                                        ))}
+                          </ol>
+                          </div>
+                        )}
+                        {queryInput && (
+                            <h3>Search did not return any books. Please try again!</h3>
                         )}
                     </div> 
                 </div>
@@ -69,7 +77,6 @@ class SearchPage extends Component {
     
     }
 }
-
 
 
 export default SearchPage

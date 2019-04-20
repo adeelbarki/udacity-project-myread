@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 class ReadStatus extends Component {
+    
 
     updateShelf = event => 
         this.props.shelfChange(this.props.book, event.target.value);
@@ -13,7 +14,7 @@ class ReadStatus extends Component {
             if (item.id === book.id) {
               currentShelf = item.shelf;
               break;
-            }
+            } else currentShelf = 'none'
           }
         return (
             <div className="book-shelf-changer">
@@ -22,7 +23,7 @@ class ReadStatus extends Component {
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="read">Read</option>
-                    <option value="none">None</option>
+                    <option value="none" defaultValue='none'>None</option>
                 </select>
             </div>
         )

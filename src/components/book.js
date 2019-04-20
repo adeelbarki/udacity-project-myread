@@ -1,10 +1,31 @@
 import React, { Component } from 'react'
 import noCover from '../images/not-available.jpg'
 import ReadStatus from './readStatus'
+import * as BooksAPI from '../utils/BooksAPI'
 
 class Book extends Component {
+
+    state = {
+        books: [],
+
+    }
+
+    shelfChange = (bookShelfChanged, shelf) => {
+        BooksAPI.update(bookShelfChanged, shelf)
+            .then(() => {
+                bookShelfChanged.shelf = shelf
+                this.setState(prevState => ({
+                    books: prevState.books
+                        .filter(book => 
+                            book.id !== bookShelfChanged.id)
+                            .concat(bookShelfChanged)
+                }))
+            })
+    }
+
+
     render() {
-        const { book, books, shelfChange } = this.props
+        const { book, books } = this.props
         return (
             <li>
                 <div className='book'>
@@ -25,7 +46,7 @@ class Book extends Component {
                                     </div>
                                 
                                 )}
-                                <ReadStatus book={book} books={books} shelfChange={shelfChange} />
+                                <ReadStatus book={book} books={books} shelfChange={this.shelfChange} />
                     </div>
                     <div className='book'>
                             {book.title ? (

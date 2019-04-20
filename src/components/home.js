@@ -20,19 +20,6 @@ class Home extends Component {
             })
     }
 
-    shelfChange = (bookShelfChanged, shelf) => {
-        BooksAPI.update(bookShelfChanged, shelf)
-            .then(() => {
-                bookShelfChanged.shelf = shelf
-                this.setState(prevState => ({
-                    books: prevState.books
-                        .filter(book => 
-                            book.id !== bookShelfChanged.id)
-                            .concat(bookShelfChanged)
-                }))
-            })
-    }
-    
     
     render(){
         const { books } = this.state
@@ -58,7 +45,7 @@ class Home extends Component {
                                 <div className="bookshelf-books">
                                     <ol className="books-grid">
                                         {shelfBooks.map(book => (
-                                            <Book book={book} books={shelfBooks} key={book.id} shelfChange={this.shelfChange} />
+                                            <Book book={book} books={shelfBooks} key={book.id} />
                                         ))}
                                     </ol>
                                  </div>
@@ -67,7 +54,7 @@ class Home extends Component {
                    })}
                 </div>
                 <div className="open-search">
-                    <Link to='/searchpage'  
+                    <Link to='/search'  
                     >Add a book</Link>
                 </div>
                 

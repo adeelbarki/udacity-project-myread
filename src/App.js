@@ -12,7 +12,7 @@ class BooksApp extends Component {
         <Route exact path='/' render={() => (
           <Home />
         )} />
-        <Route path='/searchpage' render={() => (
+        <Route path='/search' render={() => (
           <SearchPage />
         )} />
       </div>
