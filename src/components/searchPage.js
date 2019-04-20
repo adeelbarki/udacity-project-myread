@@ -33,18 +33,6 @@ class SearchPage extends Component {
                    queryInput: false 
                 });
         }
-    
-
-    /*updateQuery = (query) => {
-        console.log(query)
-        this.setState(() => ({
-            query: query.trim()
-        }))
-    }
-
-    clearQuery = () => {
-        this.updateQuery('')
-    }*/
 
     render() {   
         const { query, showingBooks } = this.state
