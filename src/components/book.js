@@ -22,9 +22,10 @@ class Book extends Component {
                                         width: 128, height: 170,
                                         backgroundImage: `url(${noCover})`
                                     }}>
-                                </div>
+                                    </div>
+                                
                                 )}
-                                <ReadStatus />
+                                <ReadStatus book={book} books={books} shelfChange={shelfChange} />
                     </div>
                     <div className='book'>
                             {book.title ? (

@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 class ReadStatus extends Component {
 
-
-    static propTypes = {
-        book: PropTypes.object.isRequired,
-        books: PropTypes.object.isRequired,
-        changeShelf: PropTypes.func.isRequired 
-    }
-
     updateShelf = event => 
-        this.props.changeShelf(this.props.book, event.target.value);
+        this.props.shelfChange(this.props.book, event.target.value);
 
     render() {
-        const {book, books} = this.props;
+        const { book, books } = this.props;
 
         let currentShelf = 'none'
+        for (let item of books) {
+            if (item.id === book.id) {
+              currentShelf = item.shelf;
+              break;
+            }
+          }
         return (
             <div className="book-shelf-changer">
                 <select onChange={this.updateShelf} defaultValue={currentShelf}>

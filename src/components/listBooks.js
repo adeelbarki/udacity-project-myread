@@ -4,17 +4,9 @@ import ReadStatus from './readStatus'
 
 class ListBooks extends Component {
     
-    state = {
-        changeShelf : false
-    }
     
     render() {
-        const { showingBooks, books, shelfChange } = this.props
-        const shelfOptions = [
-            {option: 'currentlyReading', title: 'Currently Reading'},
-            {option: 'wantToRead', title: 'Want to Read'},
-            {option: 'read', title: 'Read'}
-        ]
+        const { showingBooks } = this.props
         
         return (
             <div className="bookshelf-books">
