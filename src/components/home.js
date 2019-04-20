@@ -50,14 +50,15 @@ class Home extends Component {
                 <div className="list-books-content">
                    {shelfOptions.map((shelf, index) => {
                        const shelfBooks = books.filter(book => 
-                            book.shelf === shelf.option)
+                            book.shelf === shelf.option)  
+                            console.log(shelfBooks)      
                         return(
                             <div className="bookshelf" key={index}>
                                 <h2 className="bookshelf-title">{shelf.title}</h2>
                                 <div className="bookshelf-books">
                                     <ol className="books-grid">
-                                        {books.map(book => (
-                                            <Book book={book} books={shelfBooks} shelfChange={this.shelfChange} />
+                                        {shelfBooks.map(book => (
+                                            <Book book={book} books={shelfBooks} key={book.id} shelfChange={this.shelfChange} />
                                         ))}
                                     </ol>
                                  </div>
