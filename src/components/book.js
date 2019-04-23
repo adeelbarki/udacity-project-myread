@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import noCover from '../images/not-available.jpg'
 import ReadStatus from './readStatus'
 import * as BooksAPI from '../utils/BooksAPI'
+import { Redirect } from 'react-router-dom'
+
+
 
 class Book extends Component {
 
     state = {
         books: [],
+        toHome: false
 
     }
+
 
     shelfChange = (bookShelfChanged, shelf) => {
         BooksAPI.update(bookShelfChanged, shelf)
@@ -18,13 +23,20 @@ class Book extends Component {
                     books: prevState.books
                         .filter(book => 
                             book.id !== bookShelfChanged.id)
-                            .concat(bookShelfChanged)
+                            .concat(bookShelfChanged),
+                    toHome: true
                 }))
+                 
             })
+            
+             
     }
 
 
     render() {
+        if(this.state.toHome === true) {
+            return(<Redirect to='/' />)
+        }
         const { book, books } = this.props
         return (
             <li>
@@ -46,7 +58,8 @@ class Book extends Component {
                                     </div>
                                 
                                 )}
-                                <ReadStatus book={book} books={books} shelfChange={this.shelfChange} />
+                                <ReadStatus book={book} books={books} shelfChange={this.shelfChange}>
+                                </ReadStatus>
                     </div>
                     <div className='book'>
                             {book.title ? (
@@ -55,10 +68,15 @@ class Book extends Component {
                                 <p className="book-title">No title available</p>
                             ) }
                             <p className="book-authors">{book.authors}</p>
-                        </div>
+                    </div>
                 </div>
             </li>
         )
+    }
+
+    componentDidUpdate(prevState, state, snapshot) {
+        console.log('Component did update')
+          
     }
 }
 

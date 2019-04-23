@@ -57,8 +57,7 @@ class SearchPage extends Component {
                     </div>
                     <div className="search-books-results">
                         {showingBooks.length > 0 && (
-                          <div>
-                          <h3>Showing {showingBooks.length} books </h3>  
+                          <div>  
                           <ol className="books-grid">
                                         {showingBooks.map(book => (
                                             <Book book={book} books={showingBooks} key={book.id} shelfChange={shelfChange} />
