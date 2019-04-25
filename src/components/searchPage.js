@@ -4,12 +4,14 @@ import * as BooksAPI from '../utils/BooksAPI'
 import Book from './book'
 
 class SearchPage extends Component {
+    
     state = {
         showingBooks: [],
         query: '',
-        queryInput: false
+        queryInput: false,
     }
-
+    
+    
     updateQuery = (query) => {
         this.setState(() => ({
             query: query
@@ -30,13 +32,14 @@ class SearchPage extends Component {
               {
                    showingBooks: [], 
                    queryInput: false 
-                });
+                })   
         }
 
-    render() {   
-        const { query, showingBooks, queryInput } = this.state
-        const { shelfChange } = this.props
+
         
+        render() {  
+        const { query, showingBooks, queryInput } = this.state
+        const { shelfBooks, shelfChange, books } = this.props
         return(
             <div className="app">
                 <div className="search-books">
@@ -60,13 +63,21 @@ class SearchPage extends Component {
                           <div>  
                           <ol className="books-grid">
                                         {showingBooks.map(book => (
-                                            <Book book={book} books={showingBooks} key={book.id} shelfChange={shelfChange} />
-                                        ))}
+                                            <Book book={book} 
+                                            showingBooks={showingBooks}
+                                            shelfBooks={shelfBooks} 
+                                            books={books}
+                                            key={book.id} 
+                                            shelfChange={shelfChange} 
+                                            />
+                                        ))
+                                        }
+                                        
                           </ol>
                           </div>
                         )}
                         {queryInput && (
-                            <h3>Search did not return any books. Please try again!</h3>
+                            <h3>No books found. Please try again!</h3>
                         )}
                     </div> 
                 </div>
@@ -75,6 +86,7 @@ class SearchPage extends Component {
         )
     
     }
+    
 }
 
 

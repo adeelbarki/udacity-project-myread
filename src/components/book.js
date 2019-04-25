@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import noCover from '../images/not-available.jpg'
 import ReadStatus from './readStatus'
-import * as BooksAPI from '../utils/BooksAPI'
 import { Redirect } from 'react-router-dom'
+import * as BooksAPI from '../utils/BooksAPI'
 
 
 
 class Book extends Component {
-
     state = {
-        books: [],
-        toHome: false
-
+        books: this.props.books,
+        redirect: false
+        
     }
-
 
     shelfChange = (bookShelfChanged, shelf) => {
         BooksAPI.update(bookShelfChanged, shelf)
@@ -24,20 +22,23 @@ class Book extends Component {
                         .filter(book => 
                             book.id !== bookShelfChanged.id)
                             .concat(bookShelfChanged),
-                    toHome: true
+                    redirect: true
                 }))
                  
             })
             
              
-    }
+      }
 
 
     render() {
-        if(this.state.toHome === true) {
-            return(<Redirect to='/' />)
+        
+        if(this.state.redirect) {
+            console.log(this.state.redirect)
+            return(<Redirect to='/' />)      
         }
-        const { book, books } = this.props
+        const { book, shelfBooks, showingBooks } = this.props
+        let {currentShelf} = this.props
         return (
             <li>
                 <div className='book'>
@@ -58,7 +59,10 @@ class Book extends Component {
                                     </div>
                                 
                                 )}
-                                <ReadStatus book={book} books={books} shelfChange={this.shelfChange}>
+                                <ReadStatus book={book} shelfBooks={shelfBooks}
+                                showingBooks={showingBooks}
+                                currentShelf={currentShelf} 
+                                shelfChange={this.shelfChange}>
                                 </ReadStatus>
                     </div>
                     <div className='book'>
@@ -72,11 +76,6 @@ class Book extends Component {
                 </div>
             </li>
         )
-    }
-
-    componentDidUpdate(prevState, state, snapshot) {
-        console.log('Component did update')
-          
     }
 }
 

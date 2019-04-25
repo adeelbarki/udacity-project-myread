@@ -1,29 +1,31 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 
 
 
 class ReadStatus extends Component {
+
     
 
     updateShelf = event => (
         this.props.shelfChange(this.props.book, event.target.value)
     )
-    render() {
-        const { book, books } = this.props;
 
+    
+    render() {
+        const { book, shelfBooks } = this.props
         let currentShelf = 'none'
-       
-        for (let item of books) {
-            if (item.id === book.id) {
-              currentShelf = item.shelf;
-              console.log(currentShelf)
-            } 
-       }
+        
+
+            for (let item of shelfBooks) {
+                
+                if (item.id === book.id) {
+                  currentShelf = item.shelf; 
+                }  
+            }
         
         return (
             <div className="book-shelf-changer">
-                <select onChange={this.updateShelf} defaultValue={currentShelf}>
+                <select onChange={this.updateShelf} value={currentShelf}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
@@ -33,6 +35,7 @@ class ReadStatus extends Component {
             </div>
         )
     }
+    
 }
 
 export default ReadStatus

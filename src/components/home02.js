@@ -5,9 +5,8 @@ import Book from './book'
 
 class Home extends Component {
 
-
     state = {
-        books: [],
+        books: []
 
     }
 
@@ -23,6 +22,7 @@ class Home extends Component {
     
     render(){
         const { books } = this.state
+        console.log(books)
         const shelfOptions = [
             {option: 'currentlyReading', title: 'Currently Reading'},
             {option: 'wantToRead', title: 'Want to Read'},
@@ -37,8 +37,7 @@ class Home extends Component {
                 <div className="list-books-content">
                    {shelfOptions.map((shelf, index) => {
                        const shelfBooks = books.filter(book => 
-                            book.shelf === shelf.option)  
-                            console.log(shelfBooks)      
+                            book.shelf === shelf.option)        
                         return(
                             <div className="bookshelf" key={index}>
                                 <h2 className="bookshelf-title">{shelf.title}</h2>
