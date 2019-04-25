@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 
-
-
 class ReadStatus extends Component {
-
     
 
     updateShelf = event => (
@@ -14,12 +11,9 @@ class ReadStatus extends Component {
     render() {
         const { book, shelfBooks } = this.props
         let currentShelf = 'none'
-        
-
-            for (let item of shelfBooks) {
-                
-                if (item.id === book.id) {
-                  currentShelf = item.shelf; 
+        for (let bookId of shelfBooks) {
+            if (bookId.id === book.id) {
+                currentShelf = bookId.shelf; 
                 }  
             }
         

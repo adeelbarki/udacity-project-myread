@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import noCover from '../images/not-available.jpg'
 import ReadStatus from './readStatus'
 
-
-
 class Book extends Component {
     
     render() {
@@ -42,7 +40,11 @@ class Book extends Component {
                             ) : (
                                 <p className="book-title">No title available</p>
                             ) }
-                            <p className="book-authors">{book.authors}</p>
+                            {book.authors ? (
+                                <p className="book-authors">{book.authors}</p>
+                            ) : (
+                                <p className="book-authors">No author available</p>
+                            )} 
                     </div>
                 </div>
             </li>
