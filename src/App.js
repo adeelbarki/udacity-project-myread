@@ -7,15 +7,12 @@ import { Link } from 'react-router-dom';
 import Book from './components/book'
 
 
-
 class BooksApp extends Component {
   state = {
-    books: [],
-  
+    books: []
 }
 
 componentDidMount(){
-  console.log("Component did mount")
     BooksAPI.getAll()
         .then((books) => {
             this.setState(() => ({
@@ -24,9 +21,22 @@ componentDidMount(){
         })
 }
 
+shelfChange = (bookShelfChanged, shelf) => {
+  BooksAPI.update(bookShelfChanged, shelf)
+      .then(() => {
+          bookShelfChanged.shelf = shelf
+          this.setState(prevState => ({
+              books: prevState.books
+                  .filter(book => 
+                      book.id !== bookShelfChanged.id)
+                      .concat(bookShelfChanged),
+          }))
 
+        })     
+}
 
   render() {
+    
     const { books } = this.state
         const shelfOptions = [
             {option: 'currentlyReading', title: 'Currently Reading'},
@@ -35,8 +45,7 @@ componentDidMount(){
         ]
     return (
       <div className="App">
-      {console.log("Testing page")}
-        <Route exact path='/'  render={() => (
+        <Route exact path='/' render={() => (
           <div className="list-books">
           <div className="list-books-title">
           <h1>MyReads</h1>
@@ -53,7 +62,8 @@ componentDidMount(){
                                   {shelfBooks.map(book => (
                                       <Book book={book} 
                                       books={books}
-                                      shelfBooks={shelfBooks}  
+                                      shelfBooks={shelfBooks}
+                                      shelfChange={this.shelfChange}  
                                       key={book.id} 
                                       />
                                   ))}
@@ -71,7 +81,7 @@ componentDidMount(){
       </div>
         )} />
         <Route path='/search' render={() => (
-          <SearchPage shelfBooks={books} books={books} />
+          <SearchPage shelfBooks={books} books={books} shelfChange={this.shelfChange}/>
 
         )} />
       </div>
