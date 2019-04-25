@@ -41,6 +41,6 @@ Project udacity-my-read is a part of React Nanodegree Program at [Udactiy](https
 ## Author
 
 * Adeel Ahmed Khan (Adeel Barki) <br />
-  _Full Stack Web Developer_ <br />
+  __ _Full Stack Web Developer_ <br />
   _Front End Web Developer_ <br />
-  _React Web Developer___ <br />
+  _React Web Developer_ __ <br />
